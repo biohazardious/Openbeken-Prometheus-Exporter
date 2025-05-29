@@ -1,6 +1,7 @@
 # 🔌 OpenBeken Prometheus Exporter
 
 This project is a lightweight Prometheus exporter that collects real-time metrics from **OpenBeken-based smart plugs** and exposes them in Prometheus-compatible format for monitoring and visualization via Grafana or similar tools.
+Metrics data is compatible with Gizex's Tuya dashboard. (https://grafana.com/grafana/dashboards/23018-power/)
 
 ---
 
