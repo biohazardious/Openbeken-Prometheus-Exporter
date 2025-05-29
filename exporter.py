@@ -35,7 +35,7 @@ def metrics():
                 # Status 8 for sensor data
                 res = requests.get(status_url, timeout=5)
                 res.raise_for_status()
-                sensor_data = res.json().get("StatusSNS", {})
+                sensor_data = res.json().get("StatusSNS", {}).get("ENERGY", {})
 
                 power_w = float(sensor_data.get("Power", 0))
                 voltage = float(sensor_data.get("Voltage", 0))
@@ -49,7 +49,8 @@ def metrics():
                 # Power state
                 power_res = requests.get(power_url, timeout=3)
                 power_res.raise_for_status()
-                state = 1 if power_res.text.strip().endswith("ON") else 0
+                state_data = power_res.json().get("POWER", "").upper()
+                state = 1 if state_data == "ON" else 0
 
                 # Set Prometheus metrics
                 g_power.labels(plug=name).set(power_w)
