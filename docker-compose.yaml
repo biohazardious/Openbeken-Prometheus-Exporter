@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  openbeken-exporter:
+    build: .
+    container_name: openbeken-exporter
+    ports:
+      - "9345:9345"
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+    restart: unless-stopped
