@@ -55,7 +55,7 @@ def metrics():
                 # Set Prometheus metrics
                 g_power.labels(device=name).set(power_w)
                 g_voltage.labels(device=name).set(voltage)
-                g_current.labels(device=name).set(current_a * 1000)  # amps to milliamps
+                g_current.labels(device=name).set(current_a)  # amps to milliamps
                 g_switch.labels(device=name).set(state)
                 g_kwh_day.labels(device=name).set(kwh_day)
 
