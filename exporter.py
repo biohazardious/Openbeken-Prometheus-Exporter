@@ -12,11 +12,11 @@ with open("config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
 # Prometheus Metrics
-g_power = Gauge("tuya_smartplug_power", "Power in watts", ["plug"])
-g_voltage = Gauge("tuya_smartplug_voltage", "Voltage in volts", ["plug"])
-g_current = Gauge("tuya_smartplug_current", "Current in milliamps", ["plug"])
-g_switch = Gauge("tuya_smartplug_switch_on", "Switch state (1=on, 0=off)", ["plug"])
-g_kwh_day = Gauge("tuya_smartplug_power_kwh_day", "Projected daily energy use in kWh", ["plug"])
+g_power = Gauge("tuya_smartplug_power", "Total power used, in Watts", ["device"])
+g_voltage = Gauge("tuya_smartplug_voltage", "Electrical voltage, in Volts", ["device"])
+g_current = Gauge("tuya_smartplug_current", "Current in milliamps", ["device"])
+g_switch = Gauge("tuya_smartplug_switch_on", "Switch state (1=on, 0=off)", ["device"])
+g_kwh_day = Gauge("tuya_smartplug_power_kwh_day", "Projected power consumption in kWh per day", ["device"])
 
 @app.route("/metrics")
 def metrics():
