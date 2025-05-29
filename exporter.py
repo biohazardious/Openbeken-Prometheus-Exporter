@@ -53,11 +53,11 @@ def metrics():
                 state = 1 if state_data == "ON" else 0
 
                 # Set Prometheus metrics
-                g_power.labels(plug=name).set(power_w)
-                g_voltage.labels(plug=name).set(voltage)
-                g_current.labels(plug=name).set(current_a * 1000)  # amps to milliamps
-                g_switch.labels(plug=name).set(state)
-                g_kwh_day.labels(plug=name).set(kwh_day)
+                g_power.labels(device=name).set(power_w)
+                g_voltage.labels(device=name).set(voltage)
+                g_current.labels(device=name).set(current_a * 1000)  # amps to milliamps
+                g_switch.labels(device=name).set(state)
+                g_kwh_day.labels(device=name).set(kwh_day)
 
                 print(f"  ✓ {name}: {power_w}W, {voltage}V, {current_a}A, State={'ON' if state else 'OFF'}, Day Est={kwh_day}kWh")
 
