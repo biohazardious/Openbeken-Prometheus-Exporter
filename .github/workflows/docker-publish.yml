@@ -27,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: biohazardious/Openbeken-Prometheus-Exporter:latest
+          tags: biohazardious/openbeken-prometheus-exporter:latest
