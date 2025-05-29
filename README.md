@@ -1,67 +1,83 @@
-# OpenBeken Prometheus Exporter
+# 🔌 OpenBeken Prometheus Exporter
 
-This project provides a lightweight Prometheus exporter for [OpenBeken](https://github.com/openshwprojects/OpenBK7231T_App) smart devices that emulate Tuya smart plug metrics.
-
-Metrics are exported in the format compatible with [`tuya-smartplug-exporter`](https://github.com/rkfg/tuya-smartplug-exporter), allowing easy integration with existing Prometheus setups and Grafana dashboards.
+This project is a lightweight Prometheus exporter that collects real-time metrics from **OpenBeken-based smart plugs** and exposes them in Prometheus-compatible format for monitoring and visualization via Grafana or similar tools.
 
 ---
 
-## 🔧 Features
+## 📈 Metrics Exported
 
-- 🧠 Exposes power, voltage, current, and energy metrics per plug.
-- 📁 YAML config for multiple devices.
-- 🐳 Docker and Docker Compose support.
-- 🔌 Tuya-style metrics like `tuya_power`, `tuya_voltage`, etc.
-
----
-
-## 📦 Example Metrics
-
-tuya_power{plug="plug_livingroom"} 18.5 tuya_voltage{plug="plug_livingroom"} 231.3 tuya_current{plug="plug_livingroom"} 0.08 tuya_energy_total{plug="plug_livingroom"} 12.8
+| Metric Name                     | Description                                         |
+|--------------------------------|-----------------------------------------------------|
+| `tuya_smartplug_power`         | Instantaneous power usage in watts (W)             |
+| `tuya_smartplug_voltage`       | Voltage in volts (V)                                |
+| `tuya_smartplug_current`       | Current in milliamps (mA)                           |
+| `tuya_smartplug_switch_on`     | Device state (1 = ON, 0 = OFF)                      |
+| `tuya_smartplug_power_kwh_day` | Estimated energy usage per day in kilowatt-hours    |
 
 ---
 
-## 🚀 Quick Start
+## ⚙️ Configuration
 
-### 1. Clone the repo
+Edit the `config.yaml` file to define your smart plugs:
 
-```bash
+```yaml
+devices:
+  - name: plug_livingroom
+    ip: 192.168.1.10
+  - name: plug_kitchen
+    ip: 192.168.1.11
+
+🚀 Quick Start with Docker Compose
+1. Clone the Repository
+
 git clone https://github.com/biohazardious/Openbeken-Prometheus-Exporter.git
 cd Openbeken-Prometheus-Exporter
 
-2. Edit config.yaml
+2. Run with Docker Compose
 
-devices:
-  - name: plug_livingroom
-    ip: 192.168.1.100
-  - name: plug_bedroom
-    ip: 192.168.1.101
+docker compose up --build -d
 
-3. Start with Docker Compose
-
-docker compose up -d --build
-
-The metrics endpoint will be available at:
+The exporter will be accessible at:
 
 http://localhost:9345/metrics
 
+📡 Prometheus Integration
 
----
-
-📈 Prometheus Scrape Config
+Add the following job to your prometheus.yml:
 
 scrape_configs:
-  - job_name: 'openbeken'
+  - job_name: 'openbeken_smartplugs'
     static_configs:
-      - targets: ['your-host-ip:9345']
+      - targets: ['host.docker.internal:9345']
 
+Or if Prometheus is running in the same Docker network:
 
----
+      - targets: ['openbeken-exporter:9345']
 
-🔧 Advanced
+🐳 Dockerfile
 
-Add more devices
+The project includes a minimal Dockerfile using Python 3.11 slim:
 
-Just edit config.yaml, then restart the container:
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["python", "exporter.py"]
 
-docker compose restart
+📦 Requirements
+
+    Python 3.11+
+
+    Prometheus
+
+    Docker + Docker Compose
+
+🔄 CI/CD
+
+You can configure GitHub Actions to build and push Docker images to Docker Hub automatically using GitOps workflows and a Personal Access Token (PAT).
+🧑‍💻 Author
+
+Created with ❤️ by @biohazardious
+
+Licensed under the MIT License.
