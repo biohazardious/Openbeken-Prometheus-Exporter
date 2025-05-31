@@ -80,5 +80,3 @@ You can configure GitHub Actions to build and push Docker images to Docker Hub a
 🧑‍💻 Author
 
 Created with ❤️ by @biohazardious
-
-Licensed under the MIT License.
