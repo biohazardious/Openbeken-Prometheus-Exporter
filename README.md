@@ -33,6 +33,7 @@ devices:
 1. Clone the Repository
 
 git clone https://github.com/biohazardious/Openbeken-Prometheus-Exporter.git
+
 cd Openbeken-Prometheus-Exporter
 
 2. Run with Docker Compose
@@ -59,25 +60,20 @@ Or if Prometheus is running in the same Docker network:
 ## 🐳 Dockerfile
 
 The project includes a minimal Dockerfile using Python 3.11 slim:
-
+```Dockerfile
 FROM python:3.11-slim
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 CMD ["python", "exporter.py"]
+```
 
 ## 📦 Requirements
-
     Python 3.11+
-
     Prometheus
-
     Docker + Docker Compose
 
-## 🔄 CI/CD
-
-You can configure GitHub Actions to build and push Docker images to Docker Hub automatically using GitOps workflows and a Personal Access Token (PAT).
 ## 🧑‍💻 Author
 
 Created with ❤️ by @biohazardious
