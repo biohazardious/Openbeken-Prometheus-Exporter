@@ -27,8 +27,9 @@ devices:
     ip: 192.168.1.10
   - name: plug_kitchen
     ip: 192.168.1.11
+```
 
-🚀 Quick Start with Docker Compose
+## 🚀 Quick Start with Docker Compose
 1. Clone the Repository
 
 git clone https://github.com/biohazardious/Openbeken-Prometheus-Exporter.git
@@ -42,7 +43,7 @@ The exporter will be accessible at:
 
 http://localhost:9345/metrics
 
-📡 Prometheus Integration
+## 📡 Prometheus Integration
 
 Add the following job to your prometheus.yml:
 
@@ -55,7 +56,7 @@ Or if Prometheus is running in the same Docker network:
 
       - targets: ['openbeken-exporter:9345']
 
-🐳 Dockerfile
+## 🐳 Dockerfile
 
 The project includes a minimal Dockerfile using Python 3.11 slim:
 
@@ -66,7 +67,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 CMD ["python", "exporter.py"]
 
-📦 Requirements
+## 📦 Requirements
 
     Python 3.11+
 
@@ -74,9 +75,9 @@ CMD ["python", "exporter.py"]
 
     Docker + Docker Compose
 
-🔄 CI/CD
+## 🔄 CI/CD
 
 You can configure GitHub Actions to build and push Docker images to Docker Hub automatically using GitOps workflows and a Personal Access Token (PAT).
-🧑‍💻 Author
+## 🧑‍💻 Author
 
 Created with ❤️ by @biohazardious
